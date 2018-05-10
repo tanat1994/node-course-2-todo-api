@@ -10,7 +10,7 @@ var {User} = require('./models/user.js');
 // Middleware
 app.use(bodyParser.json());
 
-// @dev path create todo
+// @dev POST path create todo
 app.post('/todos', (req, res) => {
   var todo = new Todos({
     text: req.body.text
@@ -21,9 +21,20 @@ app.post('/todos', (req, res) => {
   todo.save().then((doc) => {
     res.send(doc);
   }, (err) => {
-    res.status(404).send(err);
+    res.status(400).send(err);
   });
 });
+
+// @dev GET path todo
+app.get('/todos', (req, res) => {
+  Todos.find().then((todos) => {
+    // res.send(todos);
+    res.send({todos});
+  }).catch((e) => {
+    res.status(400).send(e);
+  });
+});
+
 
 
 app.listen(3000, () => {
