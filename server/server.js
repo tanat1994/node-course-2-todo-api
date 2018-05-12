@@ -1,6 +1,7 @@
 const express = require('express');
 var app = express();
 var bodyParser = require('body-parser'); // Let us send JSON to server
+var {ObjectID} = require('mongodb');
 
 var {mongoose} = require('./db/mongoose.js');
 
@@ -35,6 +36,29 @@ app.get('/todos', (req, res) => {
   });
 });
 
+
+// @dev GET/todos/1234
+app.get('/todos/:id', (req, res) => {
+  // res.send(req.params);
+  var id = req.params.id;
+
+  // @dev validate id using isValid
+  if (!ObjectID.isValid(id)) {
+    return res.status(404).send();
+  }
+
+  // @dev findById
+  Todos.findById(id).then((doc) => {
+    if (!doc) {
+      return res.status(404).send(); // Not found
+    }
+    res.status(200).send({doc});
+  }, (err) => {
+    res.status(400).send(); // Error occured
+  });
+
+
+});
 
 
 app.listen(3000, () => {
