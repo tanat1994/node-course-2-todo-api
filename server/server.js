@@ -14,8 +14,13 @@ app.use(bodyParser.json());
 const port = process.env.PORT || 3000; //get heroku port or set to PORT 3000
 
 // @dev test page
-app.get('/testpage', (req, res) => {
-  res.send('this is test page');
+app.get('/', (req, res) => {
+  // res.send('GET /todos, GET /todos/:id \n POST /todos/JSON "text" \n DELETE /todos/:id');
+  res.writeHead(200, { 'Content-Type': 'text/html' });
+  res.write('GET /todos' + '</br>');
+  res.write('GET /todos/:id' + '</br>');
+  res.write('POST /todos/ JSON "text: json"' + '</br>');
+  res.write('DELETE /todos/:id' + '</br>');
 });
 
 // @dev POST path create todo
