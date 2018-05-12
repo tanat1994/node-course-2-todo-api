@@ -11,6 +11,8 @@ var {User} = require('./models/user.js');
 // Middleware
 app.use(bodyParser.json());
 
+const post = process.env.PORT || 3000; //get heroku port or set to PORT 3000
+
 // @dev test page
 app.get('/testpage', (req, res) => {
   res.send('this is test page');
@@ -66,8 +68,8 @@ app.get('/todos/:id', (req, res) => {
 });
 
 
-app.listen(3000, () => {
-  console.log('Server is up on Port: 3000');
+app.listen(port, () => {
+  console.log(`Server is up on Port: ${port}`);
 });
 
 
