@@ -48,11 +48,11 @@ app.get('/todos/:id', (req, res) => {
   }
 
   // @dev findById
-  Todos.findById(id).then((doc) => {
-    if (!doc) {
+  Todos.findById(id).then((todo_doc) => {
+    if (!todo_doc) {
       return res.status(404).send(); // Not found
     }
-    res.status(200).send({doc});
+    res.status(200).send({todo_doc});
   }, (err) => {
     res.status(400).send(); // Error occured
   });
