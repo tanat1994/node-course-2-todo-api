@@ -11,6 +11,11 @@ var {User} = require('./models/user.js');
 // Middleware
 app.use(bodyParser.json());
 
+// @dev test page
+app.get('/testpage', (req, res) => {
+  res.send('this is test page');
+});
+
 // @dev POST path create todo
 app.post('/todos', (req, res) => {
   var todo = new Todos({
